@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QA & Software Testing Roadmap | Lucky A.S</title>
+  <style>
+    :root {
+      --bg: #030712;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --border: #1e293b;
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.35);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 80px;
+    }
+
+    /* Master Hub Link */
+    .hub-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 20px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .badge {
+      display: inline-block;
+      border: 1px solid #0284c7;
+      color: #38bdf8;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+      background: rgba(56, 189, 248, 0.08);
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 900;
+      text-align: center;
+      background: linear-gradient(135deg, #ffffff 40%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      text-align: center;
+      margin-bottom: 36px;
+      max-width: 620px;
+      line-height: 1.5;
+    }
+
+    /* Roadmap Steps Container */
+    .roadmap-container {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: relative;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+
+    .step-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .step-num {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #f1f5f9;
+    }
+
+    .step-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #334155;
+      color: #cbd5e1;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    /* Books Section */
+    .section-heading {
+      margin-top: 50px;
+      margin-bottom: 20px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .books-grid {
+      width: 100%;
+      max-width: 860px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .book-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .book-title {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #f8fafc;
+      margin-bottom: 6px;
+    }
+
+    .book-author {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .book-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: #f59e0b;
+      color: #000;
+      font-weight: 700;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .book-btn:hover { opacity: 0.9; }
+
+    /* Creator Box */
+    .creator-container {
+      margin-top: 60px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .creator-box {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(8, 13, 26, 0.95));
+      border: 1.5px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+      border-radius: 16px;
+      padding: 16px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .creator-subtitle {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      font-weight: 700;
+      color: #38bdf8;
+      text-transform: uppercase;
+    }
+
+    .creator-name {
+      font-size: 1.45rem;
+      font-weight: 900;
+      letter-spacing: 2.5px;
+      background: linear-gradient(90deg, #ffffff, #38bdf8, #a855f7, #ffffff);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 5s ease infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .creator-link {
+      color: #94a3b8;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .creator-link:hover { color: #38bdf8; }
+  </style>
+</head>
+<body>
+
+  <a href="https://itslucky148.github.io/tech-roadmaps/" class="hub-link">← All Tech Roadmaps Hub</a>
+
+  <div class="badge">CAREER ROADMAP</div>
+  <h1>QA & SOFTWARE TESTING</h1>
+  <p class="subtitle">From Manual Testing basics and Test Design to Automation frameworks, API testing, and CI/CD quality gates.</p>
+
+  <div class="roadmap-container">
+
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-num">STEP 01</span>
+        <h2 class="step-title">Manual Testing & SDLC Fundamentals</h2>
+      </div>
+      <p class="step-desc">Understand how software is developed and tested. Learn the difference between Black Box, White Box, functional, and non-functional testing methods.</p>
+      <div class="tag-list">
+        <span class="tag">SDLC & STLC</span>
+        <span class="tag">Agile / Scrum</span>
+        <span class="tag">Test Plans</span>
+        <span class="tag">Bug Life Cycle</span>
+        <span class="tag">Jira</span>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-num">STEP 02</span>
+        <h2 class="step-title">Test Design & Test Case Writing</h2>
+      </div>
+      <p class="step-desc">Master test techniques: Boundary Value Analysis (BVA), Equivalence Partitioning, Decision Tables, and writing production-ready test cases.</p>
+      <div class="tag-list">
+        <span class="tag">Test Cases</span>
+        <span class="tag">BVA Technique</span>
+        <span class="tag">Equivalence Partitioning</span>
+        <span class="tag">Defect Tracking</span>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-num">STEP 03</span>
+        <h2 class="step-title">API Testing & Databases</h2>
+      </div>
+      <p class="step-desc">Learn how to validate backend data and REST APIs directly before hitting the UI layer. Test endpoints, HTTP status codes, and database states.</p>
+      <div class="tag-list">
+        <span class="tag">Postman</span>
+        <span class="tag">REST API</span>
+        <span class="tag">JSON & Headers</span>
+        <span class="tag">SQL Queries</span>
+        <span class="tag">Status Codes</span>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-num">STEP 04</span>
+        <h2 class="step-title">Test Automation (UI & Web)</h2>
+      </div>
+      <p class="step-desc">Pick a programming language (Java or Python) and build scalable test automation suites using modern browser automation frameworks.</p>
+      <div class="tag-list">
+        <span class="tag">Selenium WebDriver</span>
+        <span class="tag">Playwright</span>
+        <span class="tag">Cypress</span>
+        <span class="tag">Page Object Model (POM)</span>
+        <span class="tag">TestNG / PyTest</span>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <span class="step-num">STEP 05</span>
+        <h2 class="step-title">CI/CD, Performance & Security Testing</h2>
+      </div>
+      <p class="step-desc">Integrate your test suites into automated build pipelines, run load tests to measure latency under stress, and check for basic vulnerabilities.</p>
+      <div class="tag-list">
+        <span class="tag">GitHub Actions</span>
+        <span class="tag">Jenkins</span>
+        <span class="tag">Apache JMeter</span>
+        <span class="tag">OWASP ZAP</span>
+        <span class="tag">Docker Test Runners</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-heading">📚 Recommended Books</div>
+  <div class="books-grid">
+    <div class="book-card">
+      <div>
+        <div class="book-title">Lessons Learned in Software Testing</div>
+        <div class="book-author">by Cem Kaner, James Bach, Bret Pettichord</div>
+      </div>
+      <a href="https://amzn.to/placeholder" target="_blank" class="book-btn">Get on Amazon</a>
+    </div>
+
+    <div class="book-card">
+      <div>
+        <div class="book-title">Agile Testing: A Practical Guide</div>
+        <div class="book-author">by Lisa Crispin & Janet Gregory</div>
+      </div>
+      <a href="https://amzn.to/placeholder" target="_blank" class="book-btn">Get on Amazon</a>
+    </div>
+
+    <div class="book-card">
+      <div>
+        <div class="book-title">Continuous Delivery</div>
+        <div class="book-author">by Jez Humble & David Farley</div>
+      </div>
+      <a href="https://amzn.to/placeholder" target="_blank" class="book-btn">Get on Amazon</a>
+    </div>
+  </div>
+
+  <!-- VIP Creator Credit Box -->
+  <div class="creator-container">
+    <div class="creator-box">
+      <div class="creator-subtitle">⚡ DEVELOPED & CREATED BY ⚡</div>
+      <div class="creator-name">Lucky A.S</div>
+      <a href="https://github.com/itslucky148" target="_blank" class="creator-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        github.com/itslucky148
+      </a>
+    </div>
+  </div>
+
+</body>
+  </html>
