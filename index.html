@@ -10,7 +10,7 @@
       --card-bg: #0b1329;
       --border: #1e293b;
       --accent: #38bdf8;
-      --accent-glow: rgba(56, 189, 248, 0.35);
+      --accent-glow: rgba(56, 189, 248, 0.4);
       --text: #f8fafc;
       --text-muted: #94a3b8;
     }
@@ -33,14 +33,14 @@
       overflow-x: hidden;
     }
 
-    /* Top Horizontal Navigation */
+    /* Top Horizontal Navigation Bar */
     .top-nav {
       width: 100%;
-      max-width: 900px;
+      max-width: 950px;
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 12px;
+      padding: 4px 2px 14px;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
@@ -48,487 +48,653 @@
 
     .nav-btn {
       white-space: nowrap;
-      background: #0f172a;
+      background: #0d1527;
       border: 1px solid var(--border);
       color: var(--text-muted);
-      padding: 5px 12px;
-      border-radius: 6px;
+      padding: 6px 14px;
+      border-radius: 9999px;
       font-size: 0.72rem;
       font-weight: 600;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
+      transition: all 0.2s ease;
     }
-    .nav-btn.active, .nav-btn:hover {
+    .nav-btn:hover, .nav-btn.active {
       border-color: var(--accent);
+      color: #fff;
+      background: rgba(56, 189, 248, 0.12);
+    }
+    .nav-btn.active {
+      background: #0284c7;
+      border-color: #38bdf8;
       color: #fff;
     }
 
     /* Header */
     .badge {
       font-size: 0.65rem;
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       color: var(--accent);
       text-transform: uppercase;
-      margin-top: 10px;
-      font-weight: 700;
+      margin-top: 18px;
+      font-weight: 800;
     }
 
     h1 {
-      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-size: clamp(1.8rem, 5.5vw, 2.5rem);
       font-weight: 900;
       text-align: center;
-      letter-spacing: 1.5px;
-      margin: 4px 0 6px;
+      letter-spacing: 2px;
+      margin: 6px 0 8px;
       color: #ffffff;
+      text-transform: uppercase;
     }
 
     .subtext {
       color: var(--text-muted);
-      font-size: 0.8rem;
+      font-size: 0.82rem;
       text-align: center;
-      margin-bottom: 14px;
+      margin-bottom: 20px;
     }
 
-    /* Controls */
+    /* Control Buttons (Exact Match to Video) */
     .controls {
       display: flex;
-      gap: 10px;
-      margin-bottom: 24px;
+      gap: 12px;
+      margin-bottom: 35px;
+      align-items: center;
     }
 
-    .ctrl-btn {
-      background: #0f172a;
-      border: 1px solid var(--border);
-      color: #cbd5e1;
-      padding: 6px 14px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 600;
+    .btn-replay {
+      background: #38bdf8;
+      color: #030712;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 800;
       cursor: pointer;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+      transition: all 0.2s ease;
     }
-    .ctrl-btn:hover { border-color: var(--accent); color: #fff; }
+    .btn-replay:hover {
+      background: #7dd3fc;
+      transform: scale(1.02);
+    }
 
-    /* Interactive Tree / Flowchart Layout */
-    .flow-wrapper {
+    .btn-showall {
+      background: #0d1527;
+      color: #94a3b8;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-showall:hover {
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Interactive Flowchart Container with Canvas/SVG */
+    .flow-container {
       width: 100%;
-      max-width: 860px;
-      display: flex;
-      gap: 20px;
+      max-width: 900px;
       position: relative;
-      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 60px;
     }
 
-    /* Root Left Box */
-    .root-col {
+    /* SVG Connecting Curves */
+    .connector-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .connector-line {
+      fill: none;
+      stroke: #1e293b;
+      stroke-width: 2;
+      transition: stroke 0.4s ease, stroke-width 0.4s ease;
+    }
+
+    .connector-line.active {
+      stroke: var(--accent);
+      stroke-width: 2.5;
+      filter: drop-shadow(0 0 6px var(--accent-glow));
+    }
+
+    /* Left Root Box */
+    .root-wrapper {
+      width: 150px;
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      z-index: 2;
     }
 
-    .root-card {
+    .root-node {
       background: #081026;
       border: 2px solid var(--accent);
-      box-shadow: 0 0 15px var(--accent-glow);
-      padding: 14px 18px;
-      border-radius: 10px;
+      box-shadow: 0 0 20px var(--accent-glow);
+      padding: 16px 14px;
+      border-radius: 12px;
       text-align: center;
-      min-width: 130px;
+      width: 100%;
     }
 
     .root-badge {
-      font-size: 0.65rem;
+      font-size: 0.6rem;
       font-weight: 800;
       color: var(--accent);
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      margin-bottom: 4px;
     }
 
     .root-title {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 900;
-      color: #fff;
-      margin-top: 2px;
+      color: #ffffff;
+      line-height: 1.25;
     }
 
-    /* Right Branch Nodes Column */
-    .branch-col {
-      flex: 1;
+    /* Right Branch Cards Column */
+    .branch-list {
+      width: calc(100% - 210px);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
       position: relative;
-      border-left: 2px solid #1e293b;
-      padding-left: 20px;
+      z-index: 2;
     }
 
-    .branch-node {
-      background: var(--card-bg);
+    .step-card {
+      background: #0b1329;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px 14px;
+      border-radius: 12px;
+      padding: 14px 16px;
       position: relative;
-      transition: all 0.25s ease;
+      opacity: 0;
+      transform: translateX(30px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .branch-node::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: -20px;
-      width: 20px;
-      height: 2px;
-      background: #1e293b;
+    .step-card.visible {
+      opacity: 1;
+      transform: translateX(0);
     }
 
-    .branch-node:hover {
+    .step-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 0 16px var(--accent-glow);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
-    .node-header {
+    .card-top {
       display: flex;
       align-items: center;
       gap: 8px;
       margin-bottom: 6px;
     }
 
-    .node-title {
-      font-size: 0.92rem;
+    .card-icon {
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
       font-weight: 800;
-      color: #f1f5f9;
+      color: #f8fafc;
     }
 
-    .node-subtext {
-      color: #64748b;
+    .sub-topics {
       font-size: 0.72rem;
+      color: #64748b;
       margin-bottom: 10px;
-    }
-
-    /* Outlined Video Links (Exact pill format) */
-    .yt-list {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+      align-items: center;
     }
 
-    .yt-link {
+    .sub-topic-tag {
+      background: #070e1e;
+      border: 1px solid #1e293b;
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: #94a3b8;
+    }
+
+    /* YouTube Resource Buttons (Pill Format Exact to Video) */
+    .yt-box {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .yt-btn {
       background: transparent;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      color: var(--accent);
-      padding: 4px 8px;
-      border-radius: 5px;
-      font-size: 0.7rem;
+      border: 1px solid #1e293b;
+      color: #fca5a5;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.72rem;
       font-weight: 600;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       transition: all 0.2s ease;
     }
 
-    .yt-link:hover {
-      background: rgba(56, 189, 248, 0.15);
-      border-color: var(--accent);
+    .yt-btn:hover {
+      border-color: #ef4444;
+      background: rgba(239, 68, 68, 0.1);
       color: #fff;
     }
 
-    /* Recommended Books Section */
-    .books-section {
+    /* Recommended Books Section (Exact Match to Video) */
+    .books-wrapper {
       width: 100%;
-      max-width: 860px;
-      margin-top: 10px;
+      max-width: 900px;
+      margin-top: 20px;
     }
 
-    .sec-title {
-      font-size: 1rem;
+    .books-header {
+      font-size: 1.05rem;
       font-weight: 800;
-      margin-bottom: 14px;
+      color: #ffffff;
+      margin-bottom: 4px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      color: #fff;
+      gap: 8px;
+    }
+
+    .books-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
     }
 
     .books-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
     }
 
-    .book-card {
+    .book-item {
       background: #081026;
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 14px;
+      border-radius: 12px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .book-title {
-      font-size: 0.88rem;
+    .b-name {
+      font-size: 0.92rem;
       font-weight: 800;
       color: #f8fafc;
       margin-bottom: 4px;
     }
 
-    .book-author {
-      font-size: 0.7rem;
+    .b-desc {
+      font-size: 0.72rem;
       color: #64748b;
-      margin-bottom: 12px;
+      line-height: 1.4;
+      margin-bottom: 14px;
     }
 
-    .buy-btns {
+    .b-actions {
       display: flex;
       gap: 8px;
     }
 
-    .btn-amz {
+    .btn-buy-amz {
       flex: 1;
       text-align: center;
       background: #ff9900;
-      color: #111;
+      color: #030712;
       font-weight: 800;
-      font-size: 0.72rem;
-      padding: 6px;
-      border-radius: 5px;
+      font-size: 0.75rem;
+      padding: 7px 10px;
+      border-radius: 6px;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
 
-    .btn-fk {
+    .btn-buy-fk {
       flex: 1;
       text-align: center;
       background: #2874f0;
-      color: #fff;
+      color: #ffffff;
       font-weight: 800;
-      font-size: 0.72rem;
-      padding: 6px;
-      border-radius: 5px;
+      font-size: 0.75rem;
+      padding: 7px 10px;
+      border-radius: 6px;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
 
-    /* Footer VIP Box */
-    .creator-box {
-      margin-top: 45px;
+    /* VIP Creator Box */
+    .vip-footer {
+      margin-top: 50px;
       background: #060d1f;
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
-      border-radius: 12px;
-      padding: 12px 28px;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+      border-radius: 14px;
+      padding: 14px 34px;
       text-align: center;
     }
 
-    .creator-subtitle {
-      font-size: 0.62rem;
-      letter-spacing: 2px;
+    .vip-tag {
+      font-size: 0.65rem;
+      letter-spacing: 2.5px;
       color: var(--accent);
       font-weight: 800;
-      margin-bottom: 2px;
+      margin-bottom: 3px;
     }
 
-    .creator-name {
-      font-size: 1.25rem;
+    .vip-author {
+      font-size: 1.35rem;
       font-weight: 900;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       color: #ffffff;
     }
 
-    .creator-link {
-      font-size: 0.72rem;
+    .vip-link {
+      font-size: 0.75rem;
       color: #64748b;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      margin-top: 3px;
+      margin-top: 4px;
     }
-    .creator-link:hover { color: var(--accent); }
+    .vip-link:hover { color: var(--accent); }
 
-    /* Responsive */
-    @media (max-width: 640px) {
-      .flow-wrapper { flex-direction: column; }
-      .branch-col { border-left: none; padding-left: 0; }
-      .branch-node::before { display: none; }
-      .root-col { justify-content: flex-start; }
+    /* Mobile Responsive Adaptation */
+    @media (max-width: 680px) {
+      .flow-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+      }
+      .root-wrapper { width: 100%; max-width: 240px; }
+      .branch-list { width: 100%; }
+      .connector-svg { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Navigation (Puraane Sabhi Roadmaps ke saath) -->
+  <!-- Top Navigation (Identical to Video) -->
   <nav class="top-nav">
     <a href="https://itslucky148.github.io/tech-roadmaps/" class="nav-btn">🏠 Master Hub</a>
-    <a href="https://itslucky148.github.io/network-roadmap/" class="nav-btn">Network</a>
-    <a href="https://itslucky148.github.io/software-roadmap/" class="nav-btn">Software</a>
-    <a href="https://itslucky148.github.io/cybersecurity-roadmap/" class="nav-btn">Cybersecurity</a>
-    <a href="https://itslucky148.github.io/frontend-roadmap/" class="nav-btn">Frontend</a>
-    <a href="https://itslucky148.github.io/devops-roadmap/" class="nav-btn">DevOps</a>
-    <a href="https://itslucky148.github.io/qa-testing-roadmap/" class="nav-btn active">QA & Testing</a>
+    <a href="https://itslucky148.github.io/network-roadmap/" class="nav-btn">🌐 Network</a>
+    <a href="https://itslucky148.github.io/software-roadmap/" class="nav-btn">💻 Software SDE</a>
+    <a href="https://itslucky148.github.io/cybersecurity-roadmap/" class="nav-btn">🔒 Cybersecurity</a>
+    <a href="https://itslucky148.github.io/frontend-roadmap/" class="nav-btn">🎨 Frontend</a>
+    <a href="https://itslucky148.github.io/devops-roadmap/" class="nav-btn">♾️ DevOps</a>
+    <a href="https://itslucky148.github.io/qa-testing-roadmap/" class="nav-btn active">🧪 QA & Testing</a>
   </nav>
 
   <div class="badge">CAREER GUIDE 2026</div>
   <h1>QA & TESTING ROADMAP</h1>
-  <p class="subtext">Step-by-step interactive visual path with verified YouTube resources.</p>
+  <p class="subtext">Step-by-step interactive visual path with curated YouTube playlists.</p>
 
+  <!-- Controls Exactly from your Video -->
   <div class="controls">
-    <button class="ctrl-btn" onclick="replayAnimation()">🔄 Replay Animation</button>
-    <button class="ctrl-btn" onclick="toggleAll()">👁 Show All</button>
+    <button class="btn-replay" onclick="startTreeAnimation()">🔄 Replay Animation</button>
+    <button class="btn-showall" onclick="showAllCards()">Show All</button>
   </div>
 
-  <!-- Flowchart / Mindmap Section -->
-  <div class="flow-wrapper">
-    <div class="root-col">
-      <div class="root-card">
+  <!-- Interactive Mindmap Flow Container -->
+  <div class="flow-container" id="flowContainer">
+    <svg class="connector-svg" id="svgCanvas"></svg>
+
+    <!-- Root Node -->
+    <div class="root-wrapper">
+      <div class="root-node" id="rootNode">
         <div class="root-badge">ROOT ROLE</div>
         <div class="root-title">QA & Test<br>Engineer</div>
       </div>
     </div>
 
-    <div class="branch-col">
-      <!-- Node 1 -->
-      <div class="branch-node">
-        <div class="node-header">
-          <span style="color:var(--accent);">📘</span>
-          <span class="node-title">Manual Testing & SDLC</span>
+    <!-- Branch Nodes List -->
+    <div class="branch-list">
+      
+      <!-- Card 1 -->
+      <div class="step-card" id="card-0">
+        <div class="card-top">
+          <span class="card-icon">📘</span>
+          <span class="card-title">Manual Testing & SDLC</span>
         </div>
-        <div class="node-subtext">STLC • Agile/Scrum • Test Plans • Jira Defect Tracking</div>
-        <div class="yt-list">
-          <a href="https://www.youtube.com/results?search_query=software+testing+full+course" target="_blank" class="yt-link">▶ Testing Course by Edureka</a>
-          <a href="https://www.youtube.com/results?search_query=jira+defect+tracking+tutorial" target="_blank" class="yt-link">▶ Jira Bug Lifecycle</a>
+        <div class="sub-topics">
+          <span class="sub-topic-tag">STLC</span>
+          <span class="sub-topic-tag">Agile / Scrum</span>
+          <span class="sub-topic-tag">Test Strategy</span>
+          <span class="sub-topic-tag">Jira Bug Tracking</span>
         </div>
-      </div>
-
-      <!-- Node 2 -->
-      <div class="branch-node">
-        <div class="node-header">
-          <span style="color:var(--accent);">📋</span>
-          <span class="node-title">Test Design & Test Cases</span>
-        </div>
-        <div class="node-subtext">Boundary Value • Equivalence • Use Cases • Test Scenarios</div>
-        <div class="yt-list">
-          <a href="https://www.youtube.com/results?search_query=writing+effective+test+cases" target="_blank" class="yt-link">▶ Writing Test Cases by SDET</a>
-          <a href="https://www.youtube.com/results?search_query=boundary+value+analysis+testing" target="_blank" class="yt-link">▶ BVA & Equivalence Technique</a>
+        <div class="yt-box">
+          <a href="https://www.youtube.com/results?search_query=software+testing+full+course" target="_blank" class="yt-btn">▶ Manual Testing Course by Edureka</a>
+          <a href="https://www.youtube.com/results?search_query=jira+defect+tracking+tutorial" target="_blank" class="yt-btn">▶ Jira Bug Life Cycle</a>
         </div>
       </div>
 
-      <!-- Node 3 -->
-      <div class="branch-node">
-        <div class="node-header">
-          <span style="color:var(--accent);">⚡</span>
-          <span class="node-title">API & Database Testing</span>
+      <!-- Card 2 -->
+      <div class="step-card" id="card-1">
+        <div class="card-top">
+          <span class="card-icon">📋</span>
+          <span class="card-title">Test Design & Test Cases</span>
         </div>
-        <div class="node-subtext">Postman • REST APIs • JSON Payload • SQL Verification</div>
-        <div class="yt-list">
-          <a href="https://www.youtube.com/results?search_query=postman+api+testing+tutorial" target="_blank" class="yt-link">▶ Postman API by Automation Step</a>
-          <a href="https://www.youtube.com/results?search_query=sql+for+qa+software+testers" target="_blank" class="yt-link">▶ SQL for QA Testers</a>
+        <div class="sub-topics">
+          <span class="sub-topic-tag">Boundary Value (BVA)</span>
+          <span class="sub-topic-tag">Equivalence Partitioning</span>
+          <span class="sub-topic-tag">Test Scenarios</span>
         </div>
-      </div>
-
-      <!-- Node 4 -->
-      <div class="branch-node">
-        <div class="node-header">
-          <span style="color:var(--accent);">🤖</span>
-          <span class="node-title">Test Automation (UI & Web)</span>
-        </div>
-        <div class="node-subtext">Selenium WebDriver • Playwright • Cypress • TestNG</div>
-        <div class="yt-list">
-          <a href="https://www.youtube.com/results?search_query=selenium+webdriver+tutorial+java" target="_blank" class="yt-link">▶ Selenium by Naveen AutomationLabs</a>
-          <a href="https://www.youtube.com/results?search_query=playwright+automation+tutorial" target="_blank" class="yt-link">▶ Playwright Modern UI</a>
+        <div class="yt-box">
+          <a href="https://www.youtube.com/results?search_query=writing+effective+test+cases" target="_blank" class="yt-btn">▶ Writing Test Cases by SDET</a>
+          <a href="https://www.youtube.com/results?search_query=boundary+value+analysis+testing" target="_blank" class="yt-btn">▶ BVA & Equivalence Technique</a>
         </div>
       </div>
 
-      <!-- Node 5 -->
-      <div class="branch-node">
-        <div class="node-header">
-          <span style="color:var(--accent);">🚀</span>
-          <span class="node-title">Performance & CI/CD Pipelines</span>
+      <!-- Card 3 -->
+      <div class="step-card" id="card-2">
+        <div class="card-top">
+          <span class="card-icon">⚡</span>
+          <span class="card-title">API & Database Testing</span>
         </div>
-        <div class="node-subtext">Apache JMeter • Load Testing • Jenkins • GitHub Actions QA</div>
-        <div class="yt-list">
-          <a href="https://www.youtube.com/results?search_query=jmeter+performance+testing+full+course" target="_blank" class="yt-link">▶ JMeter Load Testing by QA Camp</a>
-          <a href="https://www.youtube.com/results?search_query=qa+automation+cicd+jenkins" target="_blank" class="yt-link">▶ CI/CD Pipeline QA Automation</a>
+        <div class="sub-topics">
+          <span class="sub-topic-tag">Postman</span>
+          <span class="sub-topic-tag">REST APIs</span>
+          <span class="sub-topic-tag">JSON Payload</span>
+          <span class="sub-topic-tag">SQL Verification</span>
+        </div>
+        <div class="yt-box">
+          <a href="https://www.youtube.com/results?search_query=postman+api+testing+tutorial" target="_blank" class="yt-btn">▶ Postman API by Automation Step</a>
+          <a href="https://www.youtube.com/results?search_query=sql+for+qa+software+testers" target="_blank" class="yt-btn">▶ SQL for QA Testers</a>
         </div>
       </div>
+
+      <!-- Card 4 -->
+      <div class="step-card" id="card-3">
+        <div class="card-top">
+          <span class="card-icon">🤖</span>
+          <span class="card-title">Test Automation (UI & Web)</span>
+        </div>
+        <div class="sub-topics">
+          <span class="sub-topic-tag">Selenium WebDriver</span>
+          <span class="sub-topic-tag">Playwright</span>
+          <span class="sub-topic-tag">Cypress</span>
+          <span class="sub-topic-tag">TestNG / PyTest</span>
+        </div>
+        <div class="yt-box">
+          <a href="https://www.youtube.com/results?search_query=selenium+webdriver+tutorial+java" target="_blank" class="yt-btn">▶ Selenium by Naveen AutomationLabs</a>
+          <a href="https://www.youtube.com/results?search_query=playwright+automation+tutorial" target="_blank" class="yt-btn">▶ Playwright Modern UI</a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="step-card" id="card-4">
+        <div class="card-top">
+          <span class="card-icon">🚀</span>
+          <span class="card-title">Performance & CI/CD Pipelines</span>
+        </div>
+        <div class="sub-topics">
+          <span class="sub-topic-tag">Apache JMeter</span>
+          <span class="sub-topic-tag">Load Testing</span>
+          <span class="sub-topic-tag">Jenkins</span>
+          <span class="sub-topic-tag">GitHub Actions QA</span>
+        </div>
+        <div class="yt-box">
+          <a href="https://www.youtube.com/results?search_query=jmeter+performance+testing+full+course" target="_blank" class="yt-btn">▶ JMeter Load Testing by QA Camp</a>
+          <a href="https://www.youtube.com/results?search_query=qa+automation+cicd+jenkins" target="_blank" class="yt-btn">▶ CI/CD Pipeline QA Automation</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- Recommended Books Section -->
-  <div class="books-section">
-    <div class="sec-title">📚 Recommended QA Books</div>
+  <!-- Recommended QA Books (Exact Video Layout) -->
+  <div class="books-wrapper">
+    <div class="books-header">📚 Recommended QA Books</div>
+    <div class="books-sub">Industry-standard books to master manual testing to automation architecture.</div>
+    
     <div class="books-grid">
 
-      <div class="book-card">
+      <div class="book-item">
         <div>
-          <div class="book-title">Lessons Learned in Software Testing</div>
-          <div class="book-author">by Cem Kaner, James Bach</div>
+          <div class="b-name">Lessons Learned in Software Testing</div>
+          <div class="b-desc">A context-driven approach to testing techniques, test automation myths, and quality assurance principles by Cem Kaner & James Bach.</div>
         </div>
-        <div class="buy-btns">
-          <a href="https://www.amazon.in/s?k=Lessons+Learned+in+Software+Testing+Cem+Kaner&tag=techroadmap26-21" target="_blank" class="btn-amz">Amazon</a>
-          <a href="https://fktr.in/UhI81RS" target="_blank" class="btn-fk">Flipkart</a>
+        <div class="b-actions">
+          <a href="https://www.amazon.in/s?k=Lessons+Learned+in+Software+Testing+Cem+Kaner&tag=techroadmap26-21" target="_blank" class="btn-buy-amz">Amazon</a>
+          <a href="https://fktr.in/UhI81RS" target="_blank" class="btn-buy-fk">Flipkart</a>
         </div>
       </div>
 
-      <div class="book-card">
+      <div class="book-item">
         <div>
-          <div class="book-title">Agile Testing: A Practical Guide</div>
-          <div class="book-author">by Lisa Crispin, Janet Gregory</div>
+          <div class="b-name">Agile Testing: A Practical Guide</div>
+          <div class="b-desc">Learn how testing fits into agile development teams, test automation quadrants, and cross-functional quality ownership.</div>
         </div>
-        <div class="buy-btns">
-          <a href="https://www.amazon.in/s?k=Agile+Testing+A+Practical+Guide+Lisa+Crispin&tag=techroadmap26-21" target="_blank" class="btn-amz">Amazon</a>
-          <a href="https://fktr.in/G5Wt0oP" target="_blank" class="btn-fk">Flipkart</a>
+        <div class="b-actions">
+          <a href="https://www.amazon.in/s?k=Agile+Testing+A+Practical+Guide+Lisa+Crispin&tag=techroadmap26-21" target="_blank" class="btn-buy-amz">Amazon</a>
+          <a href="https://fktr.in/G5Wt0oP" target="_blank" class="btn-buy-fk">Flipkart</a>
         </div>
       </div>
 
-      <div class="book-card">
+      <div class="book-item">
         <div>
-          <div class="book-title">Software Testing Automation Tips</div>
-          <div class="book-author">by Dorothy Graham, Mark Fewster</div>
+          <div class="b-name">Software Testing Automation Tips</div>
+          <div class="b-desc">Proven strategies for building maintainable automated test suites, avoiding common anti-patterns, and framework design.</div>
         </div>
-        <div class="buy-btns">
-          <a href="https://www.amazon.in/s?k=Software+Testing+Automation+Tips+Dorothy+Graham&tag=techroadmap26-21" target="_blank" class="btn-amz">Amazon</a>
-          <a href="https://fktr.in/wiN8Gv7" target="_blank" class="btn-fk">Flipkart</a>
+        <div class="b-actions">
+          <a href="https://www.amazon.in/s?k=Software+Testing+Automation+Tips+Dorothy+Graham&tag=techroadmap26-21" target="_blank" class="btn-buy-amz">Amazon</a>
+          <a href="https://fktr.in/wiN8Gv7" target="_blank" class="btn-buy-fk">Flipkart</a>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- VIP Creator Box -->
-  <div class="creator-box">
-    <div class="creator-subtitle">⚡ DEVELOPED & CREATED BY ⚡</div>
-    <div class="creator-name">Lucky A.S</div>
-    <a href="https://github.com/itslucky148" target="_blank" class="creator-link">
+  <!-- VIP Creator Box (Exact) -->
+  <div class="vip-footer">
+    <div class="vip-tag">⚡ DEVELOPED & CREATED BY ⚡</div>
+    <div class="vip-author">Lucky A.S</div>
+    <a href="https://github.com/itslucky148" target="_blank" class="vip-link">
       <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
       github.com/itslucky148
     </a>
   </div>
 
+  <!-- Real SVG Curved Path Generator & Animation Engine -->
   <script>
-    function replayAnimation() {
-      const nodes = document.querySelectorAll('.branch-node');
-      nodes.forEach((node, i) => {
-        node.style.opacity = '0';
-        node.style.transform = 'translateX(20px)';
+    function updateConnectors() {
+      if (window.innerWidth <= 680) return;
+
+      const container = document.getElementById('flowContainer');
+      const root = document.getElementById('rootNode');
+      const svg = document.getElementById('svgCanvas');
+      const cards = document.querySelectorAll('.step-card');
+
+      const containerRect = container.getBoundingClientRect();
+      const rootRect = root.getBoundingClientRect();
+
+      const startX = (rootRect.right - containerRect.left);
+      const startY = (rootRect.top + rootRect.height / 2 - containerRect.top);
+
+      let paths = '';
+      cards.forEach((card, index) => {
+        const cardRect = card.getBoundingClientRect();
+        const endX = (cardRect.left - containerRect.left);
+        const endY = (cardRect.top + cardRect.height / 2 - containerRect.top);
+
+        const deltaX = (endX - startX) * 0.55;
+        const cp1X = startX + deltaX;
+        const cp1Y = startY;
+        const cp2X = endX - deltaX;
+        const cp2Y = endY;
+
+        const pathData = `M ${startX} ${startY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${endX} ${endY}`;
+        const isActive = card.classList.contains('visible') ? 'active' : '';
+        paths += `<path id="line-${index}" class="connector-line ${isActive}" d="${pathData}" />`;
+      });
+
+      svg.innerHTML = paths;
+    }
+
+    function startTreeAnimation() {
+      const cards = document.querySelectorAll('.step-card');
+      cards.forEach(card => card.classList.remove('visible'));
+      updateConnectors();
+
+      cards.forEach((card, i) => {
         setTimeout(() => {
-          node.style.transition = 'all 0.4s ease';
-          node.style.opacity = '1';
-          node.style.transform = 'translateX(0)';
-        }, i * 150);
+          card.classList.add('visible');
+          const line = document.getElementById(`line-${i}`);
+          if (line) line.classList.add('active');
+        }, (i + 1) * 220);
       });
     }
 
-    function toggleAll() {
-      const lists = document.querySelectorAll('.yt-list');
-      lists.forEach(l => {
-        l.style.display = (l.style.display === 'none') ? 'flex' : 'flex';
+    function showAllCards() {
+      const cards = document.querySelectorAll('.step-card');
+      cards.forEach((card, i) => {
+        card.classList.add('visible');
+        const line = document.getElementById(`line-${i}`);
+        if (line) line.classList.add('active');
       });
     }
 
-    window.onload = replayAnimation;
+    window.addEventListener('resize', updateConnectors);
+    window.addEventListener('load', () => {
+      updateConnectors();
+      startTreeAnimation();
+    });
   </script>
 </body>
 </html>
