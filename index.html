@@ -29,35 +29,55 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 16px 80px;
+      padding: 16px 12px 80px;
     }
 
-    /* Master Hub Link */
-    .hub-link {
-      color: var(--accent);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 20px;
+    /* Top Horizontal Navigation Bar */
+    .top-nav {
+      width: 100%;
+      max-width: 1050px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 4px 16px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .top-nav::-webkit-scrollbar { display: none; }
+
+    .nav-btn {
+      white-space: nowrap;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
       padding: 6px 14px;
       border-radius: 20px;
-      background: rgba(56, 189, 248, 0.08);
-      border: 1px solid rgba(56, 189, 248, 0.25);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      border-color: var(--accent);
+      color: #fff;
+      background: rgba(56, 189, 248, 0.15);
+    }
+    .nav-btn.hub {
+      border-color: #f59e0b;
+      color: #f59e0b;
     }
 
+    /* Hero Header */
     .badge {
       display: inline-block;
       border: 1px solid #0284c7;
       color: #38bdf8;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       letter-spacing: 2px;
       font-weight: 700;
-      padding: 6px 16px;
+      padding: 4px 14px;
       border-radius: 20px;
-      margin-bottom: 14px;
+      margin: 14px 0 10px;
       background: rgba(56, 189, 248, 0.08);
       text-transform: uppercase;
     }
@@ -69,94 +89,105 @@
       background: linear-gradient(135deg, #ffffff 40%, #38bdf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
     }
 
     .subtitle {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       text-align: center;
-      margin-bottom: 36px;
-      max-width: 620px;
+      margin-bottom: 26px;
+      max-width: 650px;
       line-height: 1.5;
     }
 
-    /* Roadmap Steps Container */
-    .roadmap-container {
+    /* Visual Roadmap Tree */
+    .roadmap-tree {
       width: 100%;
-      max-width: 860px;
+      max-width: 780px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 22px;
       position: relative;
     }
 
-    .step-card {
+    .tree-node {
       background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
       backdrop-filter: blur(10px);
       transition: all 0.25s ease;
+      position: relative;
     }
 
-    .step-card:hover {
+    .tree-node:hover {
       border-color: var(--accent);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px var(--accent-glow);
-      transform: translateY(-2px);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
 
-    .step-header {
+    .node-title-bar {
       display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
       margin-bottom: 12px;
     }
 
-    .step-num {
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--accent);
-      font-weight: 800;
-      font-size: 0.8rem;
-      padding: 4px 10px;
-      border-radius: 8px;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-    }
-
-    .step-title {
-      font-size: 1.25rem;
+    .node-title {
+      font-size: 1.05rem;
       font-weight: 800;
       color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .step-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.55;
-      margin-bottom: 16px;
+    .phase-tag {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 3px 8px;
+      border-radius: 6px;
     }
 
-    .tag-list {
+    /* Clickable YouTube Video Badges */
+    .resource-links {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
 
-    .tag {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid #334155;
-      color: #cbd5e1;
-      padding: 4px 10px;
-      border-radius: 6px;
+    .yt-pill {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      padding: 6px 12px;
+      border-radius: 8px;
       font-size: 0.78rem;
       font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
     }
 
-    /* Books Section */
-    .section-heading {
+    .yt-pill:hover {
+      background: #ef4444;
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Recommended Books Section */
+    .section-title {
       margin-top: 50px;
-      margin-bottom: 20px;
-      font-size: 1.4rem;
+      margin-bottom: 18px;
+      font-size: 1.25rem;
       font-weight: 800;
       color: #fff;
       display: flex;
@@ -164,11 +195,11 @@
       gap: 8px;
     }
 
-    .books-grid {
+    .books-container {
       width: 100%;
-      max-width: 860px;
+      max-width: 780px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 16px;
     }
 
@@ -176,44 +207,62 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 18px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      backdrop-filter: blur(8px);
     }
 
-    .book-title {
-      font-weight: 700;
-      font-size: 1rem;
+    .book-name {
+      font-weight: 800;
+      font-size: 0.95rem;
       color: #f8fafc;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .book-author {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
       margin-bottom: 14px;
     }
 
-    .book-btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      padding: 8px 12px;
-      border-radius: 8px;
-      background: #f59e0b;
-      color: #000;
-      font-weight: 700;
-      font-size: 0.8rem;
+    .buy-options {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-amazon {
+      flex: 1;
+      text-align: center;
+      background: #ff9900;
+      color: #111;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 7px 8px;
+      border-radius: 6px;
       text-decoration: none;
       transition: opacity 0.2s;
     }
 
-    .book-btn:hover { opacity: 0.9; }
+    .btn-flipkart {
+      flex: 1;
+      text-align: center;
+      background: #2874f0;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 7px 8px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
 
-    /* Creator Box */
+    .btn-amazon:hover, .btn-flipkart:hover { opacity: 0.88; }
+
+    /* VIP Creator Credit Box */
     .creator-container {
-      margin-top: 60px;
+      margin-top: 55px;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -273,115 +322,137 @@
 </head>
 <body>
 
-  <a href="https://itslucky148.github.io/tech-roadmaps/" class="hub-link">← All Tech Roadmaps Hub</a>
+  <!-- Top Navigation Scrollable Bar -->
+  <nav class="top-nav">
+    <a href="https://itslucky148.github.io/tech-roadmaps/" class="nav-btn hub">🏠 Master Hub</a>
+    <a href="https://itslucky148.github.io/network-roadmap/" class="nav-btn">Network</a>
+    <a href="https://itslucky148.github.io/software-roadmap/" class="nav-btn">Software SDE</a>
+    <a href="https://itslucky148.github.io/cybersecurity-roadmap/" class="nav-btn">Cybersecurity</a>
+    <a href="https://itslucky148.github.io/frontend-roadmap/" class="nav-btn">Frontend</a>
+    <a href="https://itslucky148.github.io/systems-programming-roadmap/" class="nav-btn">Systems</a>
+    <a href="https://itslucky148.github.io/platform-engineering-roadmap/" class="nav-btn">Platform Eng</a>
+    <a href="https://itslucky148.github.io/devsecops-roadmap/" class="nav-btn">DevSecOps</a>
+    <a href="https://itslucky148.github.io/cloud-architect-roadmap/" class="nav-btn">Cloud Arch</a>
+    <a href="https://itslucky148.github.io/mlops-roadmap/" class="nav-btn">MLOps</a>
+    <a href="https://itslucky148.github.io/data-engineer-roadmap/" class="nav-btn">Data Eng</a>
+    <a href="https://itslucky148.github.io/sre-roadmap/" class="nav-btn">SRE</a>
+    <a href="https://itslucky148.github.io/embedded-iot-roadmap/" class="nav-btn">IoT & Embedded</a>
+    <a href="https://itslucky148.github.io/blockchain-roadmap/" class="nav-btn">Blockchain</a>
+    <a href="https://itslucky148.github.io/game-dev-roadmap/" class="nav-btn">Game Dev</a>
+    <a href="https://itslucky148.github.io/mobile-dev-roadmap/" class="nav-btn">Mobile App</a>
+    <a href="https://itslucky148.github.io/fullstack-roadmap/" class="nav-btn">Full Stack</a>
+    <a href="https://itslucky148.github.io/data-science-roadmap/" class="nav-btn">Data Science</a>
+    <a href="https://itslucky148.github.io/ai-ml-roadmap/" class="nav-btn">AI / ML</a>
+    <a href="https://itslucky148.github.io/devops-roadmap/" class="nav-btn">DevOps</a>
+    <a href="https://itslucky148.github.io/qa-testing-roadmap/" class="nav-btn active">QA & Testing</a>
+  </nav>
 
   <div class="badge">CAREER ROADMAP</div>
   <h1>QA & SOFTWARE TESTING</h1>
-  <p class="subtitle">From Manual Testing basics and Test Design to Automation frameworks, API testing, and CI/CD quality gates.</p>
+  <p class="subtitle">Step-by-step interactive visual path from Manual Testing & API checking to Selenium, Cypress, and CI/CD Quality Automation.</p>
 
-  <div class="roadmap-container">
+  <!-- Interactive Roadmap Tree with Direct YT Links -->
+  <div class="roadmap-tree">
 
-    <div class="step-card">
-      <div class="step-header">
-        <span class="step-num">STEP 01</span>
-        <h2 class="step-title">Manual Testing & SDLC Fundamentals</h2>
+    <div class="tree-node">
+      <div class="node-title-bar">
+        <span class="node-title">📘 1. Manual Testing & SDLC Fundamentals</span>
+        <span class="phase-tag">PHASE 1</span>
       </div>
-      <p class="step-desc">Understand how software is developed and tested. Learn the difference between Black Box, White Box, functional, and non-functional testing methods.</p>
-      <div class="tag-list">
-        <span class="tag">SDLC & STLC</span>
-        <span class="tag">Agile / Scrum</span>
-        <span class="tag">Test Plans</span>
-        <span class="tag">Bug Life Cycle</span>
-        <span class="tag">Jira</span>
+      <div class="resource-links">
+        <a href="https://www.youtube.com/results?search_query=software+testing+full+course" target="_blank" class="yt-pill">▶ Testing Full Course</a>
+        <a href="https://www.youtube.com/results?search_query=SDLC+STLC+agile+explained" target="_blank" class="yt-pill">▶ SDLC & STLC Tutorial</a>
+        <a href="https://www.youtube.com/results?search_query=jira+for+qa+testing" target="_blank" class="yt-pill">▶ Jira Defect Tracking</a>
       </div>
     </div>
 
-    <div class="step-card">
-      <div class="step-header">
-        <span class="step-num">STEP 02</span>
-        <h2 class="step-title">Test Design & Test Case Writing</h2>
+    <div class="tree-node">
+      <div class="node-title-bar">
+        <span class="node-title">📋 2. Test Design, Cases & Bug Life Cycle</span>
+        <span class="phase-tag">PHASE 2</span>
       </div>
-      <p class="step-desc">Master test techniques: Boundary Value Analysis (BVA), Equivalence Partitioning, Decision Tables, and writing production-ready test cases.</p>
-      <div class="tag-list">
-        <span class="tag">Test Cases</span>
-        <span class="tag">BVA Technique</span>
-        <span class="tag">Equivalence Partitioning</span>
-        <span class="tag">Defect Tracking</span>
+      <div class="resource-links">
+        <a href="https://www.youtube.com/results?search_query=how+to+write+test+cases+step+by+step" target="_blank" class="yt-pill">▶ Writing Test Cases</a>
+        <a href="https://www.youtube.com/results?search_query=boundary+value+analysis+equivalence+partitioning" target="_blank" class="yt-pill">▶ BVA & Equivalence</a>
+        <a href="https://www.youtube.com/results?search_query=bug+life+cycle+in+software+testing" target="_blank" class="yt-pill">▶ Bug Life Cycle</a>
       </div>
     </div>
 
-    <div class="step-card">
-      <div class="step-header">
-        <span class="step-num">STEP 03</span>
-        <h2 class="step-title">API Testing & Databases</h2>
+    <div class="tree-node">
+      <div class="node-title-bar">
+        <span class="node-title">⚡ 3. API & Database Testing</span>
+        <span class="phase-tag">PHASE 3</span>
       </div>
-      <p class="step-desc">Learn how to validate backend data and REST APIs directly before hitting the UI layer. Test endpoints, HTTP status codes, and database states.</p>
-      <div class="tag-list">
-        <span class="tag">Postman</span>
-        <span class="tag">REST API</span>
-        <span class="tag">JSON & Headers</span>
-        <span class="tag">SQL Queries</span>
-        <span class="tag">Status Codes</span>
+      <div class="resource-links">
+        <a href="https://www.youtube.com/results?search_query=postman+api+testing+crash+course" target="_blank" class="yt-pill">▶ Postman Full Course</a>
+        <a href="https://www.youtube.com/results?search_query=sql+for+testers" target="_blank" class="yt-pill">▶ SQL For QA Testers</a>
+        <a href="https://www.youtube.com/results?search_query=rest+assured+api+testing" target="_blank" class="yt-pill">▶ RestAssured API</a>
       </div>
     </div>
 
-    <div class="step-card">
-      <div class="step-header">
-        <span class="step-num">STEP 04</span>
-        <h2 class="step-title">Test Automation (UI & Web)</h2>
+    <div class="tree-node">
+      <div class="node-title-bar">
+        <span class="node-title">🤖 4. Web Automation (Selenium & Cypress)</span>
+        <span class="phase-tag">PHASE 4</span>
       </div>
-      <p class="step-desc">Pick a programming language (Java or Python) and build scalable test automation suites using modern browser automation frameworks.</p>
-      <div class="tag-list">
-        <span class="tag">Selenium WebDriver</span>
-        <span class="tag">Playwright</span>
-        <span class="tag">Cypress</span>
-        <span class="tag">Page Object Model (POM)</span>
-        <span class="tag">TestNG / PyTest</span>
+      <div class="resource-links">
+        <a href="https://www.youtube.com/results?search_query=selenium+webdriver+tutorial" target="_blank" class="yt-pill">▶ Selenium WebDriver</a>
+        <a href="https://www.youtube.com/results?search_query=playwright+tutorial+full+course" target="_blank" class="yt-pill">▶ Playwright Modern UI</a>
+        <a href="https://www.youtube.com/results?search_query=cypress+testing+tutorial" target="_blank" class="yt-pill">▶ Cypress Complete Guide</a>
       </div>
     </div>
 
-    <div class="step-card">
-      <div class="step-header">
-        <span class="step-num">STEP 05</span>
-        <h2 class="step-title">CI/CD, Performance & Security Testing</h2>
+    <div class="tree-node">
+      <div class="node-title-bar">
+        <span class="node-title">🚀 5. Performance, Security & CI/CD Pipelines</span>
+        <span class="phase-tag">PHASE 5</span>
       </div>
-      <p class="step-desc">Integrate your test suites into automated build pipelines, run load tests to measure latency under stress, and check for basic vulnerabilities.</p>
-      <div class="tag-list">
-        <span class="tag">GitHub Actions</span>
-        <span class="tag">Jenkins</span>
-        <span class="tag">Apache JMeter</span>
-        <span class="tag">OWASP ZAP</span>
-        <span class="tag">Docker Test Runners</span>
+      <div class="resource-links">
+        <a href="https://www.youtube.com/results?search_query=jmeter+performance+testing+tutorial" target="_blank" class="yt-pill">▶ JMeter Load Testing</a>
+        <a href="https://www.youtube.com/results?search_query=qa+automation+jenkins+github+actions" target="_blank" class="yt-pill">▶ CI/CD Pipeline QA</a>
+        <a href="https://www.youtube.com/results?search_query=owasp+zap+security+testing+tutorial" target="_blank" class="yt-pill">▶ OWASP ZAP Basics</a>
       </div>
     </div>
 
   </div>
 
-  <div class="section-heading">📚 Recommended Books</div>
-  <div class="books-grid">
+  <!-- Recommended Books Section with Updated Flipkart & Amazon Affiliate Links -->
+  <div class="section-title">📖 Recommended QA Books</div>
+  <div class="books-container">
+
     <div class="book-card">
       <div>
-        <div class="book-title">Lessons Learned in Software Testing</div>
-        <div class="book-author">by Cem Kaner, James Bach, Bret Pettichord</div>
+        <div class="book-name">Lessons Learned in Software Testing</div>
+        <div class="book-author">by Cem Kaner, James Bach</div>
       </div>
-      <a href="https://amzn.to/placeholder" target="_blank" class="book-btn">Get on Amazon</a>
+      <div class="buy-options">
+        <a href="https://www.amazon.in/s?k=Lessons+Learned+in+Software+Testing+Cem+Kaner&tag=techroadmap26-21" target="_blank" class="btn-amazon">Amazon</a>
+        <a href="https://fktr.in/UhI81RS" target="_blank" class="btn-flipkart">Flipkart</a>
+      </div>
     </div>
 
     <div class="book-card">
       <div>
-        <div class="book-title">Agile Testing: A Practical Guide</div>
-        <div class="book-author">by Lisa Crispin & Janet Gregory</div>
+        <div class="book-name">Agile Testing: A Practical Guide</div>
+        <div class="book-author">by Lisa Crispin, Janet Gregory</div>
       </div>
-      <a href="https://amzn.to/placeholder" target="_blank" class="book-btn">Get on Amazon</a>
+      <div class="buy-options">
+        <a href="https://www.amazon.in/s?k=Agile+Testing+A+Practical+Guide+Lisa+Crispin&tag=techroadmap26-21" target="_blank" class="btn-amazon">Amazon</a>
+        <a href="https://fktr.in/G5Wt0oP" target="_blank" class="btn-flipkart">Flipkart</a>
+      </div>
     </div>
 
     <div class="book-card">
       <div>
-        <div class="book-title">Continuous Delivery</div>
-        <div class="book-author">by Jez Humble & David Farley</div>
+        <div class="book-name">Software Testing Automation Tips</div>
+        <div class="book-author">by Dorothy Graham, Mark Fewster</div>
       </div>
-      <a href="https://amzn.to/placeholder" target="_blank" class="book-btn">Get on Amazon</a>
+      <div class="buy-options">
+        <a href="https://www.amazon.in/s?k=Software+Testing+Automation+Tips+Dorothy+Graham&tag=techroadmap26-21" target="_blank" class="btn-amazon">Amazon</a>
+        <a href="https://fktr.in/wiN8Gv7" target="_blank" class="btn-flipkart">Flipkart</a>
+      </div>
     </div>
+
   </div>
 
   <!-- VIP Creator Credit Box -->
@@ -397,4 +468,4 @@
   </div>
 
 </body>
-  </html>
+</html>
